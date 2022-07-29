@@ -1,0 +1,37 @@
+{% extends 'bootstrap_base.html' %}
+{% set active_page = "login" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <div class="container-fluid p-5 bg-light">
+                <h3>Login</h3>
+                <p>Please enter your email and password</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <form method="POST" class="p-5">
+                {{ form.hidden_tag() }}
+                {{ form.username.label }}
+                <br>
+                {{ form.username(class='form-control') }}
+                {{ form.password.label}}
+                <br>
+                {{ form.password(class='form-control')}}
+                <br>
+                {% if error is not none %}
+                <p><i>{{error}}</i></p>
+                {% endif %}
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

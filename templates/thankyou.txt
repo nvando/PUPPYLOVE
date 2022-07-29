@@ -1,0 +1,14 @@
+{% extends 'bootstrap_base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <div class="container-fluid p-5 bg-light">
+                <h3>Thank you for signing up {{session["user"]}}!</h3>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

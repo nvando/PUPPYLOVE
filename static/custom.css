@@ -1,0 +1,23 @@
+.carousel .carousel-control-prev, .carousel .carousel-control-next{ 
+    visibility: hidden;
+    opacity: 1;
+}
+.carousel:hover .carousel-control-prev, .carousel:hover .carousel-control-next { 
+    visibility: visible;
+    animation-duration: 1s;
+    transition-timing-function: linear; 
+}
+.img-fluid-logo {
+  max-width: auto;
+  height: 50px;
+}
+
+.navbar {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left:0px;
+}
+
+.check-space{
+  margin-right: 40px !important;
+}

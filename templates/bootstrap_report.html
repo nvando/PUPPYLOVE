@@ -1,0 +1,30 @@
+{% extends 'bootstrap_base.html' %}
+{% set active_page = "report" %}
+{% block content %}
+<div class="container-fluid bg-light p-3"></div>
+<div class="container-fluid bg-light p-5">
+    {% if contains_upper and contains_lower and ends_num %}
+    <p>Welcome {{ session['username' ]}}</p>
+    {% else %}
+    <p>Oh no! Looks like you had issues with your username.</p>
+    <p>Here are the requirements you failed:
+    <ul>
+        {% if not contains_upper %}
+        <li>You did not use an uppercase character</li>
+        {% endif %}
+        {% if not contains_lower %}
+        <li>You did not use a lowercase character</li>
+        {% endif %}
+        {% if not ends_num %}
+        <li>You did not end your username with a number</li>
+        {% endif %}
+    </ul>
+    <br>
+    <a href="{{url_for('signup')}}" class="btn btn-secondary" role="button">Return to Sign Up</a>
+    </p>
+    {% endif %}
+
+
+
+</div>
+{% endblock content %}
