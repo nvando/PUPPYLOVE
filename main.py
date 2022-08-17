@@ -80,38 +80,49 @@ def signup():
     form = RegistrationForm()
 
     if form.validate_on_submit():
+        username = form.username.data
 
-        session["user"] = form.username.data
+        # session["user"] = form.username.data
+        # if all(valid_username(session["user"])):  # check if all username conditions are true
 
-        if all(valid_username(session["user"])):  # check if all username conditions are true
+            # session["email"] = form.email.data
+            # session["password"] = form.password.data
 
-            session["email"] = form.email.data
-            session["password"] = form.password.data
-
-            add_user(session["user"], session["password"])
+            # add_user(session["user"], session["password"])
+        
+        if all (valid_username(username)):
+            password = form.password.data
+            email = form.username.data
+            add_user(username, password)
 
             if form.stay_loggedin.data is True:
+                session["user"] = username
+                session["email"] = email
+                session["password"] = password
                 session["logged_in"] = True
                 return redirect(url_for("dashboard"))
 
             else:
-                return redirect(url_for("thankyou"))
+                return redirect(url_for("thankyou", username=username))
 
         else:
-            return redirect(url_for("report"))
+            return redirect(url_for("report", username=username))
 
     return render_template("bootstrap_signup.html", form=form)
 
 
 @app.route("/dashboard")
 def dashboard():
-    return render_template("bootstrap_dashboard.html")
+    if 'logged_in' in session: 
+        return render_template("bootstrap_dashboard.html")
+    else: return redirect(url_for("index"))
 
 
 @app.route("/report")
 def report():
+    username = request.args.get("username")
 
-    contains_upper, contains_lower, ends_num = valid_username(session["user"])
+    contains_upper, contains_lower, ends_num = valid_username(username)
 
     return render_template(
         "bootstrap_report.html",
@@ -123,8 +134,12 @@ def report():
 
 @app.route("/thankyou")
 def thankyou():
+    username = request.args.get("username")
 
-    return render_template("bootstrap_thankyou.html")
+    if not username is None:
+        return render_template("bootstrap_thankyou.html", username=username)
+    else:
+        return redirect(url_for("index"))
 
 
 def valid_login(username, password):
@@ -143,7 +158,7 @@ def add_user(username, password):
 
     hash_pw = hash_password(password)
 
-    with open(USERS_PATH, "a") as csv_file:
+    with open(USERS_PATH, "a", newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow([username, hash_pw])
 

@@ -4,7 +4,7 @@
 <div class="container-fluid bg-light p-3"></div>
 <div class="container-fluid bg-light p-5">
     {% if contains_upper and contains_lower and ends_num %}
-    <p>Welcome {{ session['username' ]}}</p>
+    <p>Welcome {{ username }}</p>
     {% else %}
     <p>Oh no! Looks like you had issues with your username.</p>
     <p>Here are the requirements you failed:
