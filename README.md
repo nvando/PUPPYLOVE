@@ -1,0 +1,1 @@
+[![.github/workflows/run_tests.yml](https://github.com/nvando/PUPPYLOVE/actions/workflows/run_tests.yml/badge.svg)](https://github.com/nvando/PUPPYLOVE/actions/workflows/run_tests.yml)
