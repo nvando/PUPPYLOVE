@@ -1,0 +1,38 @@
+name: Deploy
+
+on: [push]
+  workflow_run:
+      workflows: ["Run Tests"]
+      types:
+        - completed
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Copy repository contents via scp  #from github to VPS
+      uses: appleboy/scp-action@master  #uses a predefined action package
+      env:
+        HOST: ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USERNAME }}
+        PORT: ${{ secrets.SSH_PORT }}
+        KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      with:
+        source: "." 
+        target: "/var/www/PUPPYLOVE"
+
+    - name: Executing remote command
+          uses: appleboy/ssh-action@v0.1.4
+          with:
+          host: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USERNAME }}
+          PORT: ${{ secrets.SSH_PORT }}
+          KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |  
+          ls -lha /var/www/PUPPYLOVE
+          sudo systemctl reload PUPPYLOVE.service
