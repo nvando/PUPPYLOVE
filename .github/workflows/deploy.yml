@@ -28,11 +28,11 @@ jobs:
 
     - name: Executing remote command
       uses: appleboy/ssh-action@v0.1.4
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          USERNAME: ${{ secrets.SSH_USERNAME }}
-          PORT: ${{ secrets.SSH_PORT }}
-          KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |  
-            ls -lha /var/www/PUPPYLOVE
-            sudo systemctl reload PUPPYLOVE.service
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        USERNAME: ${{ secrets.SSH_USERNAME }}
+        PORT: ${{ secrets.SSH_PORT }}
+        KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |  
+          ls -lha /var/www/PUPPYLOVE
+          sudo systemctl reload PUPPYLOVE.service
