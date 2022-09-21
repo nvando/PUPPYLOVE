@@ -101,7 +101,7 @@ This job condition checks whether the previous workflow conclusion was a “succ
 
 As the root user is the administrative user in a Linux environment, it has very broad privileges. Because of the heightened privileges of the root account, it is preferred not to provide Github Actions root access to the server.  Therefor, I created a separate user on the server for Github Actions to login as.
  
-Since Github Actions woudln't have root access, I needed to update permissions on the /var/www folder which contains the applications code. The new 'git user' needs read/write access to this project folder so that Github Actions can update the websites code with a secure copy of the respository.
+Since Github Actions wouldn't have root access, I needed to update permissions on the /var/www folder which contains the applications code. The new 'git user' needs read/write access to this project folder so that Github Actions can update the websites code with a secure copy of the repository.
 
 To change the permissions on the var/www folder I followed the beneath steps.
 
@@ -127,10 +127,8 @@ To change the permissions on the var/www folder I followed the beneath steps.
 
 In addition, I had to allow the 'git user' to restart the Gunicorn service file. As by default only root users are allowed to restart a SystemD service file, the git user needed sudo permission assigned. 
 
-I used visudo to provide a limited command set to the users in the webmaster group for managing this specific service. 
+I used visudo to provide a limited command set to the users in the webmaster group for managing this specific service, adding the following:
 
-
-I added the following to the visudo file:
 ```
 %webmasters ALL=(ALL) NOPASSWD: /bin/systemctl reload myproject.service
 ```
